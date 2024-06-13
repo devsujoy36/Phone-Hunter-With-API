@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Hunter Api</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <header class="p-8 border">
+        <h1 class="text-3xl lg:text-5xl font-bold text-center">Mobile Dokan Hunter</h1>
+    </header>
+
+    <main class="border border-orange-600 mx-8 lg:mx-40 mt-4 rounded-lg">
+
+
+        <!-- search section  -->
+        <section class="text-center bg-orange-500 py-10 flex justify-center items-center flex-wrap gap-2">
+            <input id="search-field" type="text" placeholder="Search here"
+            class="input input-bordered input-secondary lg:w-full lg:max-w-xs" />
+            <button onclick="handleSearch()" class="btn btn-primary">Search</button>
+            <button onclick="handleSearch2()" class="btn btn-primary">All Product</button>
+        </section>
+
+
+        <!-- spinner section  -->
+        <section id="loader-spinner" class="text-center py-10 hidden">
+            <span class="loading loading-spinner loading-lg"></span>
+        </section>
+
+
+
+        <!-- search result section  -->
+        <section id="display-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-2">
+
+        </section>
+
+
+        <!-- show all container section  -->
+        <section id="show-all-container" class="hidden justify-center  align-center  p-2 ">
+            <button class="btn btn-primary" onclick="handleShowAll()">Show All</button>
+        </section>
+
+
+        
+        <dialog id="show_details_modal" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+                <div id="show-details-container" class="p-2 lg:p-4">
+
+                </div>
+                <div class="modal-action">
+                    <form method="dialog" class="flex justify-center items-center">
+                        <button class="btn ">Buy Now</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+        
+
+    </main>
+    <footer>
+
+    </footer>
+    <script src="api.js"></script>
+</body>
+
+</html>
