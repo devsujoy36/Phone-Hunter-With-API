@@ -53,7 +53,7 @@ const loadPhones = async (searchText, isShowAll) => {
 const displayPhones = (phones, isShowAll) => {
     displayContainer.textContent = '';
     const showAllContainer = document.getElementById('show-all-container');
-    if (phones.length > 8 && !isShowAll) {
+    if (phones.length > 6 && !isShowAll) {
         showAllContainer.classList.remove('hidden');
         showAllContainer.classList.add('flex');
     } else {
@@ -62,7 +62,7 @@ const displayPhones = (phones, isShowAll) => {
     // console.log('phones before slice:', phones.length);
 
     if (!isShowAll) {
-        phones = phones.slice(0, 8);
+        phones = phones.slice(0, 6);
     }
 
     // console.log('isShowAll', isShowAll);
