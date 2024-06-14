@@ -9,13 +9,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-orange-600">
+<body class="bg-black text-white">
     <header class="p-8">
         <h1 class="text-3xl lg:text-5xl font-bold text-center mb-6"><span class="text-yellow-300">P</span>hone <span class="text-yellow-300">H</span>unter <span class="text-yellow-300">W</span>ith <span class="text-yellow-300">A</span>PI</h1>
 
         <div class="navbar justify-between bg-base-100 rounded-xl">
             <div class="">
-                <a class="btn btn-ghost text-xl" onclick="handleSearch2()">daisyui</a>
+                <a class="btn btn-primary text-xl" onclick="handleSearch2()">daisyui</a>
             </div>
             <div class="flex gap-2">
                 <input id="search-field" type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
@@ -59,20 +59,20 @@
 
 
         <!-- search result section  -->
-        <section id="display-container" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2">
+        <section id="display-container" class="text-black grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2">
 
         </section>
 
 
         <!-- show all container section  -->
-        <section id="show-all-container" class="hidden justify-center  align-center  p-2 ">
+        <section id="show-all-container" class="hidden justify-center  align-center   p-2 ">
             <button class="btn btn-primary" onclick="handleShowAll()">Show All</button>
         </section>
 
 
         
         <dialog id="show_details_modal" class="modal modal-bottom sm:modal-middle">
-            <div class="modal-box">
+            <div class="modal-box text-black">
                 <div id="show-details-container" class="p-2 lg:p-4">
 
                 </div>

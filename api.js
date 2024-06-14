@@ -109,8 +109,7 @@ const showPhoneDetails = (phone,data) => {
             <img class="rounded-xl" src="${phone.image}" alt="">
         </div>
         <h1 class="text-xl lg:text-3xl font-bold">${phone.name}</h1>
-        <p class="py-2 text-sm ">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</p>
-        
+        <p class="pt-2 text-sm ">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</p>
         <span class="font-bold text-md lg:text-lg">Specifications</span>
         <h1 class="text-xs lg:text-sm"><span class="font-bold">Brand:</span> ${phone.brand}</h1>
         <h1 class="text-xs lg:text-sm"><span class="font-bold">Memory:</span> ${phone.mainFeatures.memory}</h1>
