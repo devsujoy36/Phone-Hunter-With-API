@@ -112,13 +112,13 @@ const showPhoneDetails = (phone,data) => {
         <p class="py-2 text-sm ">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</p>
         
         <span class="font-bold text-md lg:text-lg">Specifications</span>
+        <h1 class="text-xs lg:text-sm"><span class="font-bold">Brand:</span> ${phone.brand}</h1>
+        <h1 class="text-xs lg:text-sm"><span class="font-bold">Memory:</span> ${phone.mainFeatures.memory}</h1>
         <h1 class="text-sm"><span class="font-bold">Storage:</span> ${phone.mainFeatures.storage}</h1>
         <h1 class="text-sm"><span class="font-bold">Display Size:</span> ${phone.mainFeatures.displaySize}</h1>
         <h1 class="text-xs lg:text-sm"><span class="font-bold">ChipSet:</span> ${phone.mainFeatures.chipSet}</h1>
-        <h1 class="text-xs lg:text-sm"><span class="font-bold">Memory:</span> ${phone.mainFeatures.memory}</h1>
         <h1 class="text-xs lg:text-sm"><span class="font-bold">Slug:</span> ${phone.slug}</h1>
         <h1 class="text-xs lg:text-sm"><span class="font-bold">Realese Date:</span> ${phone.releaseDate}</h1>
-        <h1 class="text-xs lg:text-sm"><span class="font-bold">Brand:</span> ${phone.brand}</h1>
         <span class="font-bold text-sm lg:text-md">Main Features:</span>
         <ol class="list-disc pl-8">
             <li class="text-xs lg:text-sm"><span class="font-bold">Bluetooth:</span> (${data.data.others.Bluetooth})</li>
