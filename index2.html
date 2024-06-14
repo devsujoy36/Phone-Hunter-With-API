@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Hunter Api</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class=" text-black">
+    <header class="p-8">
+        <h1 class="text-3xl lg:text-5xl font-bold text-center mb-6"><span class="text-red-600">P</span>hone <span
+                class="text-red-600">H</span>unter <span class="text-red-600">W</span>ith <span
+                class="text-red-600">A</span>PI</h1>
+
+        <!-- navbar  -->
+        <div class="navbar justify-between bg-base-100 rounded-xl">
+            <div class="">
+                <a class="btn btn-primary text-xl" onclick="">daisyui</a>
+            </div>
+            <div class="flex gap-2 text-black">
+                <input id="search-field" type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
+                <button class="btn " onclick="handleSearch()">Search</button>
+            </div>
+            <div class=" gap-2 text-black">
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                        <div class="w-10 rounded-full">
+                            <img alt="Tailwind CSS Navbar component"
+                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                        </div>
+                    </div>
+                    <ul tabindex="0"
+                        class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                        <li>
+                            <a class="justify-between">
+                                Profile
+                                <span class="badge">New</span>
+                            </a>
+                        </li>
+                        <li><a>Settings</a></li>
+                        <li><a>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="border border-black mx-8 lg:mx-40 mt-4 rounded-lg">
+        <!-- loader section  -->
+        <section id="loader-spinner" class="text-center py-10 hidden">
+            <span class="loading loading-spinner loading-lg"></span>
+        </section>
+
+
+        <!-- search result section  -->
+        <section id="display-container" class="text-black grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2">
+
+        </section>
+
+
+        <!-- show all container section  -->
+        <section id="show-all-container" class="hidden justify-center  align-center   p-2 ">
+            <button class="btn btn-primary" onclick="handleShowAll()">Show All</button>
+        </section>
+
+        <!-- show details modal  -->
+        <dialog id="show_details_modal" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box text-black">
+                <div id="show-details-container" class="p-2 lg:p-4">
+
+                </div>
+                <div class="modal-action">
+                    <form method="dialog" class="flex justify-center items-center">
+                        <button class="btn">Buy Now</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+    </main>
+
+    <script>
+
+        const loadPhone = async (searchText, isShowall) => {
+            const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
+            const data = await res.json();
+            const phones = data.data;
+            displayPhones(phones, isShowall)
+        }
+
+        const displayPhones = (phones, isShowall) => {
+            const displayContainer = document.getElementById('display-container');
+            displayContainer.innerHTML = '';
+
+            const showAllContainer = document.getElementById('show-all-container');
+            if (phones.length > 3 && !isShowall) {
+                showAllContainer.classList.remove('hidden')
+            } else {
+                showAllContainer.classList.add('hidden')
+            }
+
+            if (!isShowall) {
+                phones = phones.slice(0, 3);
+            }
+
+            console.log(phones);
+            phones.forEach(phone => {
+                const card = document.createElement('div');
+                card.classList = 'card bg-base-100 border border-black rounded-lg shadow-2xl ';
+                card.innerHTML = `
+                    <figure class="p-2 lg:p-4 rounded-lg">
+                        <img class="text-sm" src="${phone.image}" alt="Shoes" />
+                    </figure>
+                    <div class="card-body">
+                        <h2 class="card-title">${phone.phone_name}</h2>
+                        <p>Price: $1999</p>
+                        <p>There are many variations of passage of available, but the majority have suffered</p>
+                        
+                        <div class="card-actions justify-center">
+                            <button onclick="handleShowDetails('${phone.slug}')" class="btn btn-primary">Show details</button>
+                        </div>
+                    </div> 
+                `
+                displayContainer.appendChild(card);
+            });
+            toggleLoading(false);
+        }
+
+
+
+        const handleShowDetails = async (id) => {
+            const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
+            const data = await res.json();
+            const phone = data.data;
+            console.log(phone);
+            showPhoneDetails(phone,data)
+        }
+
+        const showPhoneDetails = (phone, data) => {
+                console.log(phone);
+                show_details_modal.showModal();
+                const showDetailsContainer = document.getElementById('show-details-container');
+                showDetailsContainer.innerHTML = `
+                    <div class="flex justify-center items-center bg-gray-200 rounded-xl py-2 lg:py-4 ">
+                        <img class="rounded-xl" src="${phone.image}" alt="">
+                    </div>
+                    <h1 class="text-xl lg:text-3xl font-bold">${phone.name}</h1>
+                    <p class="pt-2 text-sm ">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</p>
+                    <span class="font-bold text-md lg:text-lg">Specifications</span>
+                    <h1 class="text-xs lg:text-sm"><span class="font-bold">Brand:</span> ${phone.brand}</h1>
+                    <h1 class="text-xs lg:text-sm"><span class="font-bold">Memory:</span> ${phone.mainFeatures.memory}</h1>
+                    <h1 class="text-sm"><span class="font-bold">Storage:</span> ${phone.mainFeatures.storage}</h1>
+                    <h1 class="text-sm"><span class="font-bold">Display Size:</span> ${phone.mainFeatures.displaySize}</h1>
+                    <h1 class="text-xs lg:text-sm"><span class="font-bold">ChipSet:</span> ${phone.mainFeatures.chipSet}</h1>
+                    <h1 class="text-xs lg:text-sm"><span class="font-bold">Slug:</span> ${phone.slug}</h1>
+                    <h1 class="text-xs lg:text-sm"><span class="font-bold">Realese Date:</span> ${phone.releaseDate}</h1>
+                    <span class="font-bold text-sm lg:text-md">Main Features:</span>
+                    <ol class="list-disc pl-8">
+                        <li class="text-xs lg:text-sm"><span class="font-bold">Bluetooth:</span> (${data.data.others.Bluetooth})</li>
+                        <li class="text-xs lg:text-sm"><span class="font-bold">Sensor:</span> (${phone.mainFeatures.sensors})</li>
+                        <li class="text-xs lg:text-sm"><span class="font-bold">GPS:</span> (${phone.others.GPS})</li>
+                        <li class="text-xs lg:text-sm"><span class="font-bold">NFC:</span> (${phone.others.NFC})</li>
+                        <li class="text-xs lg:text-sm"><span class="font-bold">Radio:</span> (${phone.others.Radio})</li>
+                        <li class="text-xs lg:text-sm"><span class="font-bold">USB:</span> (${phone.others.USB})</li>
+                        <li class="text-xs lg:text-sm"><span class="font-bold">WLAN:</span> (${phone.others.WLAN})</li>
+                    </ol>
+    `
+
+            }
+
+        const handleSearch = (isShowall) => {
+            toggleLoading(true);
+            const searchField = document.getElementById('search-field');
+            const searchText = searchField.value;
+            // console.log(searchText);
+            loadPhone(searchText, isShowall)
+        }
+
+        const toggleLoading = (isLoading) => {
+            const loaderSpinner = document.getElementById('loader-spinner');
+            if (isLoading) {
+                loaderSpinner.classList.remove('hidden')
+            } else {
+                loaderSpinner.classList.add('hidden')
+            }
+        }
+
+        const handleShowAll = () => {
+            handleSearch(true);
+        }
+
+    </script>
+
+</body>
+
+</html>
